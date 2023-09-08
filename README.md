@@ -10,6 +10,8 @@ VLSI ASIC design involves creating custom circuits optimized for specific tasks 
 * Ram-6GB
 * Ubuntu 22.04
 * Disk space 100 GB minimum
+
+
   
 ## Day 1  Introduction to RISC-V ISA and GNU compiler toolchain
 ### Task 1
