@@ -418,6 +418,8 @@ gtkwave tb_dff_const3.vcd
   abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
   show
 ```
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/8096d608-131b-4272-a673-b0eebb93e5ac)
+
 </details>
 
 <details>
