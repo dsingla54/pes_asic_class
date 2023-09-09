@@ -11,6 +11,25 @@ VLSI ASIC design involves creating custom circuits optimized for specific tasks 
 * Ubuntu 22.04
 * Disk space 100 GB minimum
 
+  # INSTALLATION
+<details>
+<summary> RISC-V toolchain </summary>
+
+ 1. Download riscv.sh from the repo
+ 2. Open terminal and go to the directory where riscv.sh is present
+ 3. run the commands `chmod +x riscv_toolchain.sh` `./riscv.sh`
+
+This would install riscv toolchain along with iverilog
+</details>
+
+<details>
+<summary> Yosys </summary>
+
+1. Download yosys.sh from the repo
+2. Open terminal and go to the directory where yosys.sh is present
+3. run the commands `chmod +x yosys.sh` `./yosys.sh`
+</details>
+
 
   
 ## Day 1  Introduction to RISC-V ISA and GNU compiler toolchain
