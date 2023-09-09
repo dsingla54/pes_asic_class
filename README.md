@@ -84,3 +84,424 @@ Simulate a C program using ABI function call (using registers) and execute
 
 ![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/57496502-0d24-4740-9fd6-859c523ba548)
 
+
+# Week 2
+#  RTL design using Verilog with SKY130 Technology 
+
+<details>
+    <summary> Day 1 - Introduction to iVerilog, GTKwave and Yosys  </summary>
+    <br>
+      
+## Task 1
+## Loading a mux and it's testbench into iverilog 
+    
++ `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
++ `iverilog good_mux.v tb_good_mux.v`
++ `./a.out`
++ ` gtkwave tb_good_mux.vcd`
+![gtkwave](https://github.com/dsingla54/pes_asic_class/assets/139515749/23c5207b-74dd-41b2-bb11-c9cc09bce3bd)
+
+ 
+    
+    To see The Contents of the files:
+
+    `gvim tb_good_mux.v -o good_mux.v`
+
+ ![good1](https://github.com/dsingla54/pes_asic_class/assets/139515749/669df93b-a8f3-4cb7-b14d-00c484920453)
+
+
+## Task 2
+## Labs using Yosys and Sky130 PDKs
+     
+  +   To invoke **yosys**
+  -  `cd`
+  -  `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+  -   Type `yosys`
+     <br>
+     ![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/1feb52bd-436f-477a-af78-b9b180d9fa3e)
+
+
+
+  + ` read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+    ![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/b933c0bb-b74e-4668-8309-51e817c54a16)
+
+  +  `read_verilog good_mux.v`
+  +  ` synth -top good_mux`
+    ![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/b51f2363-d064-4344-bbfa-34152ce64e2a)
+
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/596451bd-2da1-46df-bf28-598f1d8fcd6e)
+
+
+  + To generate the netlist
+
+  `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+  ![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/51a4c53f-786f-4aa7-be6b-2a7ef81f16d8)
+
+
+
+  + To see the logic realised
+   `show`
+
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/6f533dde-c432-4baa-9615-f523cffb8d66)
+
+
+
+  To write the netlist
+
+   - `write_verilog good_mux_netlist.v`
+   - `!gvim good_mux_netlist.v`
+
+  - To view a simplified code
+     
+     ` write_verilog -noattr good_mux_netlist.v`
+     
+     `!gvim good_mux_netlist.v`
+    
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/c8be3d9b-fb1a-4e04-bc91-99dc36a85a0f)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/6c588d4a-72ca-47c0-a130-df3a570e82d7)
+
+
+</details>  
+
+<details>
+  <summary> Day 2 - Timing libs, hierarchical vs flat synthesis and efficient flop coding styles </summary>
+  <br>
+
+## Introduction to .lib
+
+## Task 1
+### Command to invoke sky130_fd_sc_hd__tt_025C_1v80.lib file 
+
+```
+ vim ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/4bcc6850-de7f-4346-9891-fd05db97ae7a)
+
+
+## Task 2
+## Hier synthesis flat synthesis 
+
+```
+yosys
+read_liberty -lib ../lib//sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog multiple_modules.v
+synth -top multiple_modules
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show multiple_modules
+```
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/b6aef00b-e9b8-4024-a348-1da919bc26a4)
+
+```
+write_verilog multiple_modules_hier.v
+!vim multiple_modules_hier.v 
+```
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/dee862cb-14e4-44ae-a3b1-f7d3a7f15b49)
+
+
+## Task 3
+
+## Various Flop Coding Styles and optimization
+
+### For asynchronous reset
+```
+iverilog dff_asyncres.v tb_dff_asyncres.v
+./a.out
+gtkwave tb_dff_asyncres.vcd 
+```
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/3b1555c8-e044-443f-89b1-ffaa1bf9b843)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/8f4f3ec3-aa90-46ba-ad43-50c9766c22a9)
+
+
+
+### For Asynchronous set
+```
+iverilog dff_async_set.v tb_dff_async_set.v
+./a.out
+gtkwave tb_dff_async_set.vcd
+```
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/02d0729a-9f5e-42b1-91da-e8536673653e)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/7e364742-07bc-4ea2-9214-4cf143e74fa2)
+
+### For Synchronous reset
+```
+iverilog dff_syncres.v tb_dff_syncres.v
+./a.out
+gtkwave tb_dff_syncres.vcd 
+```
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/02d0729a-9f5e-42b1-91da-e8536673653e)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/cb89a3ae-2eb8-4eaf-b347-5e06bff203ea)
+
+
+## Task 4
+### Synthesizing all 3 codes using yosys
+
+```
+yosys
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog dff_asyncres.v
+synth -top dff_asyncres
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../lib//sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+
+![Task4show](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/2c1cde75-55cd-4749-8102-aa660bf0c607)
+
+```
+read_verilog dff_async_set.v
+synth -top dff_async_set
+dfflibmap -liberty ../lib//sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+![TASK4Show2](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/a1eb1a7a-697a-4bd2-b81e-a241c2255795)
+
+```
+read_verilog dff_syncres.v
+synth -top dff_syncres
+dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+![TASk4Show3](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/d41e0d2d-d971-414b-a57f-4139d8fae5b5)
+
+</details>
+
+<details>
+  <summary> Day 3 - Combinational and Sequential Optimizations </summary>
+  <br>
+
+# Introduction to optimizations
+## Combinational logic optimizations
+**opt_check1.v**
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+read_verilog opt_check.v
+synth -top opt_check
+opt_clean -purge
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+![opt_check1](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/64f56b67-68cb-447b-a67c-a72f3c1e87ef)
+
+
+**opt_check2.v**
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+read_verilog opt_check2.v
+synth -top opt_check2
+opt_clean -purge
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+![optcheck2](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/ac82624e-d9f4-4251-a6a3-c78276514ed2)
+
+**opt_check3.v**
+
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+read_verilog opt_check3.v
+synth -top opt_check3
+opt_clean -purge
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+![optcheck3](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/0f7af77b-53ef-430c-907d-d81986b6e84b)
+
+**multiple_module_opt.v**
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+read_verilog multiple_module_opt.v
+synth -top multiple_module_opt
+flatten
+opt_clean -purge
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+show
+```
+![multiple_module](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/fa8841f9-bdfc-496b-afb9-2e8ca5b9e385)
+
+# Sequential logic optimizations
+**dff_const1.v**
+
+```
+iverilog dff_const1.v tb_dff_const1.v
+./a.out
+gtkwave tb_dff_const1.vcd
+```
+![dffcon1](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/00a2f90b-2f90-4fa5-949f-04bd1337fe9d)
+
+**Synthesis**
+```
+  read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  read_verilog dff_const1.v
+  synth -top dff_const1
+  dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+  abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+  show
+```
+![dffcon1_synth](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/c1ebaa9d-5efc-419a-8e72-e1d73ea929a2)
+
+**dff_const2.v**
+```
+iverilog dff_const2.v tb_dff_const2.v
+./a.out
+gtkwave tb_dff_const2.vcd
+```
+![dffcon2](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/d1b6b370-3d10-4c34-8655-4705d1cc9156)
+
+
+**Synthesis**
+```
+  read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  read_verilog dff_const2.v
+  synth -top dff_const2
+  dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+  abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+  show
+```
+![dffcon2_synth](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/28e578f6-658b-4383-8540-e79f1a276856)
+
+
+**dff_const3.v**
+
+```
+iverilog dff_const3.v tb_dff_const2.v
+./a.out
+gtkwave tb_dff_const3.vcd
+```
+![dffcon3](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/7902c776-d76e-45e8-99d3-83a4d11296e0)
+
+
+**Synthesis**
+```
+  read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  read_verilog dff_const3.v
+  synth -top dff_const3
+  dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+  abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+  show
+```
+![dffcon3_synth](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/35b2bbe3-f689-418c-a487-b3a56c689f14)
+
+# Sequential optimzations for unused outputs
+
+**counter_opt.v**
+**Synthesis**
+```
+  read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  read_verilog counter_opt.v
+  synth -top counter_opt
+  dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+  abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+  show
+```
+![counter_opt](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/e4315532-4ea8-44e1-9375-d5c765f4d77c)
+
+**counter_opt2.v**
+
+**Synthesis**
+```
+  read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  read_verilog counter_opt2.v
+  synth -top counter_opt
+  dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+  abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+  show
+```
+</details>
+
+<details>
+  <summary> Day 4 - GLS and Synthesis-Simulation Mismatch </summary>
+  <br>
+
+**ternary_operator_mux.v**
+	
+**Simulation**
+```
+iverilog ternary_operator_mux.v tb_ternary_operator_mux.v
+./a.out
+gtkwave tb_ternary_operator_mux.vcd
+```
+![Ternary operator](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/f77cdb7a-12e4-4ec2-896b-47462c141a00)
+
+**Synthesis**
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog ternary_operator_mux.v
+synth -top ternary_operator_mux
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog -noattr ternary_operator_mux_netlist.v
+show
+```
+![Ternary operator_synth](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/2b7048f9-7874-458f-8846-f6ef375639d9)
+
+**GLS**
+To to Gate level simulation, Invoke iverilog with verilog modules
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v ternary_operator_mux_netlist.v tb_ternary_operator_mux.v
+./a.out
+gtkwave tb_ternary_operator_mux.vcd
+```
+![ternary_operator_gls](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/3fa1f81b-6798-438c-b295-7b3a16de201d)
+
+** bad_mux.v**
+**RTL Simulation**
+```
+iverilog bad_mux.v tb_bad_mux.v
+./a.out
+gtkwave tb_bad_mux.vcd
+```
+![badmux](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/67b6e9b5-38c2-4156-be0b-ba598d8ee8f8)
+
+
+**Synthesis**
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog bad_mux.v
+synth -top bad_mux
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog -noattr bad_mux_netlist.v
+show
+```
+![badmux_synth](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/2e672237-30db-4ef6-90bc-a18e7687faa4)
+
+**GLS**
+To to Gate level simulation, Invoke iverilog with verilog modules
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_mux_netlist.v tb_bad_mux.v
+./a.out
+gtkwave tb_bad_mux.vcd
+```
+![badmuxgls](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/a69f7527-b0e8-4e51-86d8-f6ef8cb1e1da)
+
+# Labs on synth-sim mismatch for blocking statement
+**blocking_caveat.v**
+
+**RTL Simulation**
+```
+iverilog blocking_caveat.v tb_blocking_caveat.v
+./a.out
+gtkwave tb_blocking_caveat.vcd
+```
+![blockingcaveat](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/bb532eae-8f69-47be-a167-e95776fd1822)
+
+**Synthesis**
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog blocking_caveat.v
+synth -top blocking_caveat
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog -noattr blocking_caveat_netlist.v
+show
+```
+![blockingcaveatsynth](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/e32d47df-0518-4578-bdc0-985610c63bde)
+
+
+**GLS**
+To to Gate level simulation, Invoke iverilog with verilog modules
+```
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v blocking_caveat_netlist.v tb_blocking_caveat.v
+./a.out
+gtkwave tb_blocking_caveat.vcd
+```
+![blockingcaveatgls](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/a48509d0-f17c-444e-ad34-b50cb3c112a6)
+
