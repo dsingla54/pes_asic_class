@@ -254,7 +254,8 @@ synth -top dff_async_set
 dfflibmap -liberty ../lib//sky130_fd_sc_hd__tt_025C_1v80.lib
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
-```![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/595f6899-2e2f-4c8c-ab18-3a524214a217)
+```
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/595f6899-2e2f-4c8c-ab18-3a524214a217)
 
 
 ```
