@@ -174,7 +174,8 @@ Simulate a C program using ABI function call (using registers) and execute
 
 ```
  vim ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
-```![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/4bcc6850-de7f-4346-9891-fd05db97ae7a)
+```
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/4bcc6850-de7f-4346-9891-fd05db97ae7a)
 
 
 ## Task 2
