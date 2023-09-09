@@ -289,7 +289,12 @@ show
 
 
 
-**opt_check2.v**
+``` v
+module opt_check2 (input a , input b , output y);
+	assign y = a?1:b;
+endmodule
+```
+**Synthesis**
 ```
 read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
 read_verilog opt_check2.v
@@ -297,6 +302,8 @@ synth -top opt_check2
 opt_clean -purge
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
+```
+
 ```
 ![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/99169448-ca3a-4b72-85b1-1acd51c9c150)
 
@@ -314,6 +321,29 @@ show
 
 
 **multiple_module_opt.v**
+``` v
+module sub_module1(input a , input b , output y);
+ assign y = a & b;
+endmodule
+
+
+module sub_module2(input a , input b , output y);
+ assign y = a^b;
+endmodule
+
+
+module multiple_module_opt(input a , input b , input c , input d , output y);
+wire n1,n2,n3;
+
+sub_module1 U1 (.a(a) , .b(1'b1) , .y(n1));
+sub_module2 U2 (.a(n1), .b(1'b0) , .y(n2));
+sub_module2 U3 (.a(b), .b(d) , .y(n3));
+
+assign y = c | (b & n1); 
+
+
+endmodule
+```
 ```
 read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
 read_verilog multiple_module_opt.v
@@ -328,6 +358,18 @@ show
 
 # Sequential logic optimizations
 **dff_const1.v**
+``` v
+module dff_const1(input clk, input reset, output reg q);
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+		q <= 1'b0;
+	else
+		q <= 1'b1;
+end
+
+endmodule
+```
 
 ```
 iverilog dff_const1.v tb_dff_const1.v
@@ -349,6 +391,18 @@ gtkwave tb_dff_const1.vcd
 ![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/255179a3-db35-4d2d-958f-bf50b5bce75b)
 
 **dff_const2.v**
+``` v
+module dff_const2(input clk, input reset, output reg q);
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+		q <= 1'b1;
+	else
+		q <= 1'b1;
+end
+
+endmodule
+```
 ```
 iverilog dff_const2.v tb_dff_const2.v
 ./a.out
@@ -372,6 +426,26 @@ gtkwave tb_dff_const2.vcd
 
 
 **dff_const3.v**
+``` v
+module dff_const3(input clk, input reset, output reg q);
+reg q1;
+
+always @(posedge clk, posedge reset)
+begin
+	if(reset)
+	begin
+		q <= 1'b1;
+		q1 <= 1'b0;
+	end
+	else
+	begin
+		q1 <= 1'b1;
+		q <= q1;
+	end
+end
+
+endmodule
+```
 
 ```
 iverilog dff_const3.v tb_dff_const2.v
@@ -396,6 +470,21 @@ gtkwave tb_dff_const3.vcd
 # Sequential optimzations for unused outputs
 
 **counter_opt.v**
+``` v
+module counter_opt (input clk , input reset , output q);
+reg [2:0] count;
+assign q = count[0];
+
+always @(posedge clk ,posedge reset)
+begin
+	if(reset)
+		count <= 3'b000;
+	else
+		count <= count + 1;
+end
+
+endmodule
+```
 **Synthesis**
 ```
   read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
@@ -408,6 +497,22 @@ gtkwave tb_dff_const3.vcd
 ![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/c90101e3-75f4-41ba-a13e-ece7cb4df592)
 
 **counter_opt2.v**
+
+``` v
+module counter_opt (input clk , input reset , output q);
+reg [2:0] count;
+assign q = (count[2:0] == 3'b100);
+
+always @(posedge clk ,posedge reset)
+begin
+	if(reset)
+		count <= 3'b000;
+	else
+		count <= count + 1;
+end
+
+endmodule
+```
 
 **Synthesis**
 ```
@@ -434,7 +539,10 @@ iverilog ternary_operator_mux.v tb_ternary_operator_mux.v
 ./a.out
 gtkwave tb_ternary_operator_mux.vcd
 ```
-![Ternary operator](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/f77cdb7a-12e4-4ec2-896b-47462c141a00)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/7516d133-8a19-48ec-9740-d67cfe48e596)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/0aad42ac-f378-4717-8c7a-d3bb332679d5)
+
+
 
 **Synthesis**
 ```
@@ -445,7 +553,8 @@ abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 write_verilog -noattr ternary_operator_mux_netlist.v
 show
 ```
-![Ternary operator_synth](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/2b7048f9-7874-458f-8846-f6ef375639d9)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/ee50d31c-fa9c-47ba-b9f9-b1d1d2ace173)
+
 
 **GLS**
 To to Gate level simulation, Invoke iverilog with verilog modules
@@ -454,7 +563,10 @@ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_
 ./a.out
 gtkwave tb_ternary_operator_mux.vcd
 ```
-![ternary_operator_gls](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/3fa1f81b-6798-438c-b295-7b3a16de201d)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/0b13a890-6121-4886-ae1a-f1dce195f7dc)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/9f4044f1-cd0a-4a7a-ba9c-77a795caf0ab)
+
+
 
 ** bad_mux.v**
 **RTL Simulation**
@@ -463,7 +575,10 @@ iverilog bad_mux.v tb_bad_mux.v
 ./a.out
 gtkwave tb_bad_mux.vcd
 ```
-![badmux](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/67b6e9b5-38c2-4156-be0b-ba598d8ee8f8)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/c7486c24-81ee-449b-a086-83b285270711)
+
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/b2129f2c-526a-46a6-824b-69990e1ad50f)
+
 
 
 **Synthesis**
@@ -475,7 +590,8 @@ abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 write_verilog -noattr bad_mux_netlist.v
 show
 ```
-![badmux_synth](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/2e672237-30db-4ef6-90bc-a18e7687faa4)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/b9b5bb19-4477-4eda-ae1a-6da5b0f36b12)
+
 
 **GLS**
 To to Gate level simulation, Invoke iverilog with verilog modules
@@ -484,7 +600,8 @@ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_
 ./a.out
 gtkwave tb_bad_mux.vcd
 ```
-![badmuxgls](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/a69f7527-b0e8-4e51-86d8-f6ef8cb1e1da)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/44ff00b6-877b-42f1-9f25-95154806d151)
+
 
 # Labs on synth-sim mismatch for blocking statement
 **blocking_caveat.v**
@@ -495,7 +612,8 @@ iverilog blocking_caveat.v tb_blocking_caveat.v
 ./a.out
 gtkwave tb_blocking_caveat.vcd
 ```
-![blockingcaveat](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/bb532eae-8f69-47be-a167-e95776fd1822)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/548ca8e2-ceb9-49d8-a88e-3fe0c5cd1a23)
+
 
 **Synthesis**
 ```
@@ -506,7 +624,8 @@ abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 write_verilog -noattr blocking_caveat_netlist.v
 show
 ```
-![blockingcaveatsynth](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/e32d47df-0518-4578-bdc0-985610c63bde)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/b1fb4164-cae7-432c-86c3-0fe9e8040d4a)
+
 
 
 **GLS**
@@ -516,5 +635,6 @@ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_
 ./a.out
 gtkwave tb_blocking_caveat.vcd
 ```
-![blockingcaveatgls](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/a48509d0-f17c-444e-ad34-b50cb3c112a6)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/cdc905ef-1784-4f54-800e-f9ed7e8f3a30)
+
 
