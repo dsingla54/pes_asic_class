@@ -297,7 +297,8 @@ synth -top opt_check2
 opt_clean -purge
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
-```![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/99169448-ca3a-4b72-85b1-1acd51c9c150)
+```
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/99169448-ca3a-4b72-85b1-1acd51c9c150)
 
 **opt_check3.v**
 
@@ -344,7 +345,8 @@ gtkwave tb_dff_const1.vcd
   dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
   abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
   show
-```![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/255179a3-db35-4d2d-958f-bf50b5bce75b)
+```
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/255179a3-db35-4d2d-958f-bf50b5bce75b)
 
 **dff_const2.v**
 ```
