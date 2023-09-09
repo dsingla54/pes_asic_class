@@ -245,7 +245,8 @@ abc -liberty ../lib//sky130_fd_sc_hd__tt_025C_1v80.lib
 show
 ```
 
-![Task4show](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/2c1cde75-55cd-4749-8102-aa660bf0c607)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/01a121c9-5e1e-48e7-846d-65f87922b41a)
+
 
 ```
 read_verilog dff_async_set.v
@@ -253,8 +254,8 @@ synth -top dff_async_set
 dfflibmap -liberty ../lib//sky130_fd_sc_hd__tt_025C_1v80.lib
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
-```
-![TASK4Show2](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/a1eb1a7a-697a-4bd2-b81e-a241c2255795)
+```![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/595f6899-2e2f-4c8c-ab18-3a524214a217)
+
 
 ```
 read_verilog dff_syncres.v
@@ -263,7 +264,8 @@ dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
 ```
-![TASk4Show3](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/d41e0d2d-d971-414b-a57f-4139d8fae5b5)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/5bf951cf-8433-42eb-b84d-da5661c4e605)
+
 
 </details>
 
@@ -282,7 +284,8 @@ opt_clean -purge
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
 ```
-![opt_check1](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/64f56b67-68cb-447b-a67c-a72f3c1e87ef)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/90a9a3ce-21de-4865-a61e-27566caab008)
+
 
 
 **opt_check2.v**
@@ -293,8 +296,7 @@ synth -top opt_check2
 opt_clean -purge
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
-```
-![optcheck2](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/ac82624e-d9f4-4251-a6a3-c78276514ed2)
+```![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/99169448-ca3a-4b72-85b1-1acd51c9c150)
 
 **opt_check3.v**
 
@@ -306,7 +308,8 @@ opt_clean -purge
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
 ```
-![optcheck3](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/0f7af77b-53ef-430c-907d-d81986b6e84b)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/951e93a6-0320-47ed-91b2-5cea3ce5b041)
+
 
 **multiple_module_opt.v**
 ```
@@ -318,7 +321,8 @@ opt_clean -purge
 abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 show
 ```
-![multiple_module](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/fa8841f9-bdfc-496b-afb9-2e8ca5b9e385)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/f2491c12-485a-4bc8-9d76-bfa46badd8dc)
+
 
 # Sequential logic optimizations
 **dff_const1.v**
@@ -328,7 +332,8 @@ iverilog dff_const1.v tb_dff_const1.v
 ./a.out
 gtkwave tb_dff_const1.vcd
 ```
-![dffcon1](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/00a2f90b-2f90-4fa5-949f-04bd1337fe9d)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/b4028581-cead-4c1a-ab4a-9a087f9cea1d)
+
 
 **Synthesis**
 ```
@@ -338,8 +343,7 @@ gtkwave tb_dff_const1.vcd
   dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
   abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
   show
-```
-![dffcon1_synth](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/c1ebaa9d-5efc-419a-8e72-e1d73ea929a2)
+```![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/255179a3-db35-4d2d-958f-bf50b5bce75b)
 
 **dff_const2.v**
 ```
@@ -347,7 +351,8 @@ iverilog dff_const2.v tb_dff_const2.v
 ./a.out
 gtkwave tb_dff_const2.vcd
 ```
-![dffcon2](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/d1b6b370-3d10-4c34-8655-4705d1cc9156)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/11325d4b-4a53-4625-bb23-7c0f1bf3b32a)
+
 
 
 **Synthesis**
@@ -359,7 +364,8 @@ gtkwave tb_dff_const2.vcd
   abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
   show
 ```
-![dffcon2_synth](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/28e578f6-658b-4383-8540-e79f1a276856)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/f9382b10-6fd1-49c2-af92-ae32dccac20d)
+
 
 
 **dff_const3.v**
@@ -369,7 +375,7 @@ iverilog dff_const3.v tb_dff_const2.v
 ./a.out
 gtkwave tb_dff_const3.vcd
 ```
-![dffcon3](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/7902c776-d76e-45e8-99d3-83a4d11296e0)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/d725b2f4-4625-4a68-8e20-ba1168aecdb4)
 
 
 **Synthesis**
@@ -381,7 +387,8 @@ gtkwave tb_dff_const3.vcd
   abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
   show
 ```
-![dffcon3_synth](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/35b2bbe3-f689-418c-a487-b3a56c689f14)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/e5d43184-6219-4c2a-86a4-d719b1a0a896)
+
 
 # Sequential optimzations for unused outputs
 
@@ -395,7 +402,7 @@ gtkwave tb_dff_const3.vcd
   abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
   show
 ```
-![counter_opt](https://github.com/kamildamudi21/PES_ASIC_CLASS/assets/141449459/e4315532-4ea8-44e1-9375-d5c765f4d77c)
+![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/c90101e3-75f4-41ba-a13e-ece7cb4df592)
 
 **counter_opt2.v**
 
