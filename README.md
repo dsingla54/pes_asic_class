@@ -34,6 +34,7 @@ This would install riscv toolchain along with iverilog
 # RISCV Toolchain 
 <details>
   <summary>Day 1  Introduction to RISC-V ISA and GNU compiler toolchain</summary>
+<br>
 ## Task 1
 ###  C Program To Compute Sum From 1 to N (using gcc) & Spike Simulation And Debug (using RISCV)
 ```
