@@ -73,8 +73,10 @@ And then again use spike to get the result
 ![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/7a2e14ca-dec8-4859-b74c-25981bebc42a)
 </details>
 
-## Day 2
-### Task 1
+<details>
+<summary> Day 2 </summary>
+
+## Task 1
 Simulate a C program using ABI function call (using registers) and execute
 
 
@@ -86,7 +88,7 @@ Simulate a C program using ABI function call (using registers) and execute
 ![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/83c4dded-c2d4-47fd-b9b9-95c9db244f19)
 
 ![image](https://github.com/dsingla54/pes_asic_class/assets/139515749/57496502-0d24-4740-9fd6-859c523ba548)
-
+</details>
 
 # Week 2
 #  RTL design using Verilog with SKY130 Technology 
